@@ -68,3 +68,32 @@ function create_grid(width, height, step) {
     }
     return points_array;
 }
+
+let UP    = new Vector( 0,-1);
+let DOWN  = new Vector( 0, 1);
+let LEFT  = new Vector(-1, 0);
+let RIGHT = new Vector( 1, 0);
+let DIRECTION = new Vector( 0, 0);
+
+let event_handler = (event) => {
+    switch (event.key) {
+        case "ArrowUp":
+            direction = UP;
+            break;
+        case "ArrowDown":
+            direction = DOWN;
+            break;
+        case "ArrowLeft":
+            direction = LEFT;
+            break;
+        case "ArrowRight":
+            direction = RIGHT;
+            break;
+    }
+}
+let add_arrow_keys_event_listener = () => {
+    document.addEventListener("keydown", event_handler);
+}
+let remove_arrow_keys_event_listener = () => {
+    document.removeEventListener("keydown", event_handler);
+}
