@@ -1,3 +1,5 @@
+script_wrapper = () => {
+
 vector_grid = create_grid(width, height, 20);
 
 Vmouse = new Vector(0, 0);
@@ -20,3 +22,5 @@ function draw() {
 
 } draw_id = window.requestAnimationFrame(draw);
 
+}
+script_wrapper();
