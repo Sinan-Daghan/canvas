@@ -12,28 +12,38 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 4rem;
-            font-weight: lighter;
         }
 
-        main {
+        main,
+        #home_button {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        div {
-            display: flex;
-            flex-direction: row;
+        #home_button {
             justify-content: center;
-            align-items: center;
-            user-select: none;
         }
 
-        #home_button {
-            font-size: 3rem;
-            align-items: baseline;
+        button {
+            border: 1px solid black;
+            box-shadow: 4px 4px 7px black;
+            color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0);
+            position: absolute;
+            /* display: flex; */
+            font-family: 'Roboto Mono', monospace;
+            font-size: 2rem;
+
+            width: 200px;
+            height: 64px;
+            margin: 10px;
+        }
+
+        .project {
+            position: relative;
+            width: 600px;
+            height: 200px;
         }
     </style>
 </head>
@@ -41,8 +51,10 @@
 <body id="body">
 
     <nav id="nav">
-
     </nav>
+
+    <section id="canvas_interface">
+    </section>
 
     <main id="main">
 
