@@ -53,6 +53,12 @@ class Vector {
         return new Vector((this.x / magnitude) * scalar, (this.y / magnitude) * scalar);
     }
 
+    rotate(angle) {
+        let x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
+        let y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+        return new Vector(x, y);
+    }
+
     static add(vector1, vector2) {
         vector1.x += vector2.x;
         vector1.y += vector2.y;
@@ -69,6 +75,33 @@ let scale = (value, min, max, new_min, new_max) => {
 
 let clamp = (value, min, max) => {
     return Math.min(Math.max(value, min), max);
+}
+
+let draw_Vector = (Vector) => {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(Vector.x, Vector.y);
+    ctx.stroke();
+}
+
+let draw_Vstart_Vend = (Vstart, Vend) => {
+    ctx.beginPath();
+    ctx.moveTo(Vstart.x, Vstart.y);
+    ctx.lineTo(Vend.x, Vend.y);
+    ctx.stroke();
+}
+
+// A = vector A , B = vector B
+let dot_product = (A, B) => {
+    return A.x * B.x + A.y * B.y;
+}
+
+// angle between two vectors = Arcos (dot_product / (magnitude1 * magnitude2))
+let angle_between = (A, B) => {
+    let dot = dot_product(A, B);
+    let magnitude_A = A.get_magnitude();
+    let magnitude_B = B.get_magnitude();
+    return Math.acos(dot / (magnitude_A * magnitude_B));
 }
 
 function draw_Vstart_Vector(Vstart, Vector) {
@@ -180,7 +213,6 @@ let UP = new Vector(0, -1);
 let DOWN = new Vector(0, 1);
 let LEFT = new Vector(-1, 0);
 let RIGHT = new Vector(1, 0);
-let direction = new Vector(0, 0);
 
 let event_handler = (event) => {
     switch (event.key) {
