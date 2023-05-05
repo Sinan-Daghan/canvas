@@ -236,3 +236,29 @@ let add_arrow_keys_event_listener = () => {
 let remove_arrow_keys_event_listener = () => {
     document.removeEventListener("keydown", event_handler);
 }
+
+class Vec3 {
+    constructor(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    // matrix[column][row]
+    transformation(matrix) {
+        let x = matrix[0][0] * this.x + matrix[1][0] * this.y + matrix[2][0] * this.z;
+        let y = matrix[0][1] * this.x + matrix[1][1] * this.y + matrix[2][1] * this.z;
+        let z = matrix[0][2] * this.x + matrix[1][2] * this.y + matrix[2][2] * this.z;
+        return new Vec3(x, y, z);
+    }
+}
+
+// Rotation matrices
+R_x = (angle) => {
+    return [[1, 0, 0], [0, Math.cos(angle), Math.sin(angle)], [0, -Math.sin(angle), Math.cos(angle)]];
+}
+R_y = (angle) => {
+    return [[Math.cos(angle), 0, -Math.sin(angle)], [0, 1, 0], [Math.sin(angle), 0, Math.cos(angle)]];
+}
+R_z = (angle) => {
+    return [[Math.cos(angle), Math.sin(angle), 0], [-Math.sin(angle), Math.cos(angle), 0], [0, 0, 1]];
+}
