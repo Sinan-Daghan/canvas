@@ -1,7 +1,8 @@
 let projects_list = [
     //  [0] = name , [1] = src
     ["Vector Field", "projects/vector_field.js"],
-    ["Snake", "projects/snake.js"]
+    ["Snake", "projects/snake.js"],
+    ["Trigonometry", "projects/trigonometry.js"]
 ]
 
 //id of the script currently loaded
@@ -62,11 +63,12 @@ home_buton_click_callback = () => {
 
     const script = document.getElementById(script_id);
     if (script) {
-        script.remove();
         stop_draw();
+        script.remove();
     } else {
         console.log('script not found');
     }
+    location.reload();
 }
 
 let create_home_button = () => {
