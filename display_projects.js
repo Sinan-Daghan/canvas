@@ -2,7 +2,8 @@ let projects_list = [
     //  [0] = name , [1] = src
     ["Vector Field", "projects/vector_field.js"],
     ["Snake", "projects/snake.js"],
-    ["Trigonometry", "projects/trigonometry.js"]
+    ["Trigonometry", "projects/trigonometry.js"],
+    ["Cube 3D", "projects/cube_3d.js"]
 ]
 
 //id of the script currently loaded
