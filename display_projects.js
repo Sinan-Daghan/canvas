@@ -3,7 +3,8 @@ let projects_list = [
     ["Vector Field", "projects/vector_field.js"],
     ["Snake", "projects/snake.js"],
     ["Trigonometry", "projects/trigonometry.js"],
-    ["Cube 3D", "projects/cube_3d.js"]
+    ["Cube 3D", "projects/cube_3d.js"],
+    ["Avatar", "projects/avatar.js"]
 ]
 
 //id of the script currently loaded
