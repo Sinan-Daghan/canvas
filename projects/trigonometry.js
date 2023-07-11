@@ -20,17 +20,17 @@
     }
     create_and_push_lines(line_array);
 
-    create_button("Draw Lines", "draw_lines", canvas_interface, () => {
+    create_button("Draw Lines", canvas_interface, () => {
         draw_lines = !draw_lines;
     });
 
-    create_button("Add Line", "add_line", canvas_interface, () => {
+    create_button("Add Line", canvas_interface, () => {
         number_of_lines += 1;
         line_array = [];
         create_and_push_lines(line_array);
     });
 
-    create_button("Remove Line", "remove_line", canvas_interface, () => {
+    create_button("Remove Line", canvas_interface, () => {
         if (number_of_lines === 1) return;
 
         number_of_lines -= 1;
@@ -38,7 +38,7 @@
         create_and_push_lines(line_array);
     });
 
-    create_button("Draw Circle on Perimeter", "draw_circle_on_perimeter", canvas_interface, () => {
+    create_button("Draw Circle on Perimeter", canvas_interface, () => {
         draw_perimeter_circle = !draw_perimeter_circle;
     });
 

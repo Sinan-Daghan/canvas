@@ -25,4 +25,4 @@ let drawAvatar = () => {
 
 }
 
-create_button('Draw Avatar', 'drawAvatar', canvas_interface , drawAvatar);
+create_button('Draw Avatar', canvas_interface , drawAvatar);

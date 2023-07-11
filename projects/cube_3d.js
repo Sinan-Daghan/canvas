@@ -1,22 +1,22 @@
 (() => {
 
     let rotation_X = false;
-    create_button("Rotation \n Around X Axis", "rotation_X", canvas_interface, () => {
+    create_button("Rotation \n Around X Axis", canvas_interface, () => {
         rotation_X = !rotation_X;
     });
 
     let rotation_Y = false;
-    create_button("Rotation \n Around Y Axis", "rotation_Y", canvas_interface, () => {
+    create_button("Rotation \n Around Y Axis", canvas_interface, () => {
         rotation_Y = !rotation_Y;
     });
 
     let rotation_Z = false;
-    create_button("Rotation \n Around Y Axis", "rotation_Y", canvas_interface, () => {
+    create_button("Rotation \n Around Y Axis", canvas_interface, () => {
         rotation_Z = !rotation_Z;
     });
 
     let draw_cube_edges = false;
-    create_button("Draw Cube Edges", "draw_cube_edges", canvas_interface, () => {
+    create_button("Draw Cube Edges", canvas_interface, () => {
         draw_cube_edges = !draw_cube_edges;
     });
 

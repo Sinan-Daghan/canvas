@@ -14,8 +14,8 @@ const main = document.getElementById('main');
 const nav = document.getElementById('nav');
 const canvas_interface = document.getElementById('canvas_interface');
 
-let show_home_button = () => document.getElementById('home_button').style.display = 'flex';
-let hide_home_button = () => document.getElementById('home_button').style.display = 'none';
+let show_home_button = () => document.getElementById('button_Home').style.display = 'block';
+let hide_home_button = () => document.getElementById('button_Home').style.display = 'none';
 
 let show_canvas = () => { canvas.style.display = 'block'; }
 let hide_canvas = () => { canvas.style.display = 'none'; }
@@ -42,16 +42,16 @@ let display_projects = (project_list) => {
 
     project_list.forEach(project => {
         // create_button = (name, id, parent, callback)
-        create_button(project[0], project[0].replace(/\s+/g, '') , main, () => { project_click_callback(project); });
-        document.getElementById(project[0].replace(/\s+/g, '')).setAttribute('class', 'project');
+        create_button(project[0], main, () => { project_click_callback(project); });
+        document.getElementById('button_' + project[0].replace(/\s+/g, '')).setAttribute('class', 'project');
     })
 }
 
-let create_button = (name, id, parent, callback) => {
+let create_button = (name, parent, callback) => {
     let button = document.createElement('button');
     button.innerText = name;
     button.addEventListener('click', callback);
-    button.id = id;
+    button.id = 'button_' + name.replace(/\s+/g, '');
     parent.appendChild(button);
 }
 
@@ -74,7 +74,7 @@ home_buton_click_callback = () => {
 }
 
 let create_home_button = () => {
-    create_button('Home', "home_button", nav, home_buton_click_callback);
+    create_button('Home', nav, home_buton_click_callback);
 }
 
 create_home_button();
