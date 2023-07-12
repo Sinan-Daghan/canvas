@@ -4,7 +4,8 @@ let projects_list = [
     ["Snake", "projects/snake.js"],
     ["Trigonometry", "projects/trigonometry.js"],
     ["Cube 3D", "projects/cube_3d.js"],
-    ["Avatar", "projects/avatar.js"]
+    ["Avatar", "projects/avatar.js"],
+    ["Noise Grid", "projects/noise_grid.js"],
 ]
 
 //id of the script currently loaded
