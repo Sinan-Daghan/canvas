@@ -1,7 +1,8 @@
-canvas_interface.style.display = 'none';
+canvas_interface.style.display = 'flex';
+canvas.style.backgroundColor = 'rgba(0,0,0,0)'
 
 class Tile {
-    static length = 50;
+    static length = 25;
 
     constructor(x, y) {
         this.x = x;
@@ -19,14 +20,18 @@ class Tile {
 
 let grid = [];
 
-for (let i = 0; i <= canvas.width - Tile.length; i += Tile.length) {
-    for (let j = 0; j <= canvas.height - Tile.length; j += Tile.length) {
-        grid.push(new Tile(i, j));
+function create_grid() {
+    grid = [];
+    for (let i = 0; i <= canvas.width - Tile.length; i += Tile.length) {
+        for (let j = 0; j <= canvas.height - Tile.length; j += Tile.length) {
+            grid.push(new Tile(i, j));
+        }
     }
 }
+create_grid();
 
-let draw_random_grid = () =>{
-    for (tile of grid) {
+let draw_random_grid = () => {
+    for (let tile of grid) {
         tile.randomColor();
         tile.draw();
     }
@@ -34,5 +39,22 @@ let draw_random_grid = () =>{
 draw_random_grid();
 
 setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw_random_grid();
 }, 1000);
+
+let counter = create_button(`Tile length : ${Tile.length}`, canvas_interface, null);
+
+create_button('Tile length +', canvas_interface, () => {
+    if (Tile.length === 1) return;
+    Tile.length--;
+    create_grid();
+    counter.innerText = `Tile length : ${Tile.length}`;
+});
+
+create_button('Tile length -', canvas_interface, () => {
+    if (Tile.length === 50) return;
+    Tile.length++;
+    create_grid();
+    counter.innerText = `Tile length : ${Tile.length}`;
+});
