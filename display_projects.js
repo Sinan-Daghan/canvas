@@ -6,6 +6,7 @@ let projects_list = [
     ["Cube 3D", "projects/cube_3d.js"],
     ["Avatar", "projects/avatar.js"],
     ["Noise Grid", "projects/noise_grid.js"],
+    ["Falling Emojis", "projects/falling_emojis.js"]
 ]
 
 //id of the script currently loaded
@@ -54,6 +55,7 @@ let create_button = (name, parent, callback) => {
     button.addEventListener('click', callback);
     button.id = 'button_' + name.replace(/\s+/g, '');
     parent.appendChild(button);
+    return button;
 }
 
 home_buton_click_callback = () => {
