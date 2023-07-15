@@ -18,9 +18,14 @@ class Tile {
     }
 }
 
+let counter = create_button(`Tile length : ${Tile.length}`, canvas_interface, null);
+
 let grid = [];
 
 function create_grid() {
+    // update the Tile length text when creating the grid
+    counter.innerText = `Tile length : ${Tile.length}`;
+
     grid = [];
     for (let i = 0; i <= canvas.width - Tile.length; i += Tile.length) {
         for (let j = 0; j <= canvas.height - Tile.length; j += Tile.length) {
@@ -43,18 +48,14 @@ setInterval(() => {
     draw_random_grid();
 }, 1000);
 
-let counter = create_button(`Tile length : ${Tile.length}`, canvas_interface, null);
-
 create_button('Tile length +', canvas_interface, () => {
-    if (Tile.length === 1) return;
-    Tile.length--;
-    create_grid();
-    counter.innerText = `Tile length : ${Tile.length}`;
-});
-
-create_button('Tile length -', canvas_interface, () => {
     if (Tile.length === 50) return;
     Tile.length++;
     create_grid();
-    counter.innerText = `Tile length : ${Tile.length}`;
+});
+
+create_button('Tile length -', canvas_interface, () => {
+    if (Tile.length === 1) return;
+    Tile.length--;
+    create_grid();
 });

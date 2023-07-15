@@ -1,4 +1,5 @@
 script_wrapper = () => {
+canvas_interface.style.display = 'none';
 
 vector_grid = create_grid(width, height, 20);
 
