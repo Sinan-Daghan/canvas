@@ -13,7 +13,7 @@ let filledCells = 0;
 
 let game_over = false;
 function end_game() {
-    grid.style.border = '15px solid red';
+    grid.style.border = '8px solid red';
     game_over = true;
 }
 
@@ -53,6 +53,7 @@ class Case {
 }
 
 let grid = document.createElement('div');
+grid.classList.add('grid');
 grid.style.width = '400px';
 grid.style.height = '400px';
 grid.style.border = '1px solid black';
@@ -77,15 +78,31 @@ let win_combos = [
     [2, 4 ,6]
 ]
 
-function testGrid (array, win_combos) {
+function addBlink(element, color) {
+    if (color === 'green') {
+        element.classList.add('blinkGreen');
+    } else {
+        element.classList.add('blinkBlue');
+    }
+}
+
+function testGrid(array, win_combos) {
     win_combos.forEach(combo => {
-        if(array[combo[0]] && array[combo[1]] && array[combo[2]]) {
+        let A = combo[0];
+        let B = combo[1];
+        let C = combo[2];
+        if (array[A] && array[B] && array[C]) {
+            [A, B, C].forEach(index => {
+                addBlink(cells[index].case, player1 ? 'green' : 'blue');
+            });
             end_game();
         }
     });
 }
 
+let cells = [];
 for (let i = 0; i < 9; i++) {
     let newCase = new Case(i);
+    cells.push(newCase);
     grid.appendChild(newCase.case);
 }
