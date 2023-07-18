@@ -1,0 +1,35 @@
+.blinkGreen{
+          animation: blinkGreen 1s linear infinite;
+}
+
+@keyframes blinkGreen {
+          0% {
+                    background-color: hsl(100, 50%, 50%);
+          }
+          50% {
+                    background-color: hsl(160, 50%, 50%);
+          }
+          100% {
+                    background-color: hsl(100, 50%, 50%);
+          }
+}
+
+.blinkBlue{
+          animation: blinkBlue 1s linear infinite;
+}
+
+@keyframes blinkBlue {
+          0% {
+                    background-color: hsl(220, 50%, 50%);
+          }
+          50% {
+                    background-color: hsl(270, 50%, 50%);
+          }
+          100% {
+                    background-color: hsl(220, 50%, 50%);
+          }
+}
+
+.grid {
+          transition: border 0.4s linear;
+}
