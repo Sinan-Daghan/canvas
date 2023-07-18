@@ -33,3 +33,16 @@
 .grid {
           transition: border 0.4s linear;
 }
+
+/* 3d_text.js */
+.center {
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 10vh;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(101, 37, 89);
+  opacity: 0.2;
+}
