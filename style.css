@@ -46,3 +46,46 @@
   color: rgb(101, 37, 89);
   opacity: 0.2;
 }
+
+/* 10_print.js */
+.wrapper_10_print {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+.diagonal_A {
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+.diagonal_B {
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+
+.diagonal_A::before {
+  content: "";
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-top: 2px solid #000000;
+  transform-origin: bottom left;
+  transform: skewY(45deg);
+}
+
+.diagonal_B::before {
+  content: "";
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-bottom: 2px solid #000000;
+  transform: skewY(-45deg);
+  transform-origin: bottom left;
+}
