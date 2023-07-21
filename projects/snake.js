@@ -1,17 +1,10 @@
 script_wrapper = () => {
-
+    let canRestart = true;
+    let autoRestart = false;
     // Array representation of the snake cells [[x, y]...[xn, yn]]
     let snake = [];
     let head_position;
     let apple;
-
-    let start = () => {
-        snake = [[width / 2, height / 2]];
-        head_position = new Vector(200, 200);
-        apple = new Vector(300, 200);
-        direction = new Vector(10, 0);
-    }
-    start();
 
     add_arrow_keys_event_listener();
     // set the step size at 10px
@@ -23,7 +16,7 @@ script_wrapper = () => {
     let red_border = () => {
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
-                canvas.style.border = `${5 - i}px solid red`;
+                canvas.style.border = `${4 - i}px solid red`;
             }, i * 50);
         }
     }
@@ -66,6 +59,7 @@ script_wrapper = () => {
         // Test : collision : snake head / snake body
         for (let cell of snake) {
             if (cell[0] === head_position.x && cell[1] === head_position.y) {
+                end_game();
                 return;
             }
         }
@@ -73,6 +67,7 @@ script_wrapper = () => {
         // Test : collision : snake head / wall
         if (head_position.x < 0 || head_position.x > width - 10 || head_position.y < 0 || head_position.y > height - 10) {
             red_border();
+            end_game();
             return;
         }
 
@@ -95,5 +90,38 @@ script_wrapper = () => {
         }, 50)
 
     } draw_id = window.requestAnimationFrame(draw);
+
+    let end_game = () => {
+        canRestart = true;
+        window.cancelAnimationFrame(draw_id);
+        if(autoRestart){
+            start();
+        }
+    }
+
+    let start = () => {
+            if (canRestart) {
+            canRestart = false;
+
+            snake = [[width / 2, height / 2]];
+            head_position = new Vector(200, 200);
+            apple = new Vector(300, 200);
+            direction = new Vector(10, 0);
+            draw();
+        }
+    }
+    start();
+
+    create_button('Restart \n (space)', canvas_interface, start);
+    let autoRestartButton = create_button('Auto restart \n (OFF)', canvas_interface, () => {
+        autoRestart = !autoRestart;
+        autoRestartButton.innerText = autoRestart ? 'Auto restart \n (ON)' : 'Auto restart \n (OFF)';
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            start();
+        }
+    });
 }
 script_wrapper();
