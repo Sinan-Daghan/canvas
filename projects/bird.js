@@ -21,9 +21,14 @@ class Bird {
 
 let bird = new Bird();
 
+let bird_jump = () => {
+    bird.y1 += Bird.Yspeed;
+}
+create_button('Jump \n (space)', canvas_interface, bird_jump);
+
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space') {
-        bird.y1 += Bird.Yspeed;
+        bird_jump();
     }
 });
 
