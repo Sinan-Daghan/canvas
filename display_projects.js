@@ -50,10 +50,12 @@ let project_click_callback = (project) => {
 }
 
 let display_projects = (project_list) => {
-
+    let color = 120;
     project_list.forEach(project => {
         // create_button = (name, id, parent, callback)
-        create_button(project[0], main, () => { project_click_callback(project); });
+        btn = create_button(project[0], main, () => { project_click_callback(project); });
+        btn.style.backgroundColor = `hsl(${color}, 50%, 50%)`;
+        color += 10;
         document.getElementById('button_' + project[0].replace(/\s+/g, '')).setAttribute('class', 'project');
     })
 }
