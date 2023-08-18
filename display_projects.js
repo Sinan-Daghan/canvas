@@ -1,5 +1,6 @@
 let projects_list = [
     //  [0] = name , [1] = src
+    ["Waves", "projects/waves.js"],
     ["Bézier Curves", "projects/bezier_curves.js"],
     ["Binary search", "projects/binary_search.js"],
     ["Unstable", "projects/unstable.js"],
