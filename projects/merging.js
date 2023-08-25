@@ -1,51 +1,30 @@
-let state = true;
-
-let currentItem;
-let currentItemIndex = 1;
+let selected = undefined;
 let itemOffset = { x: 0, y: 0 };
 
 let handle_clickDown = () => {
-    let itemToToggle;
-    squares.forEach((item, index) => {
-        if (testAABB(mousePosition, item)) {
-            itemToToggle = item;
-            currentItemIndex = index;
+    let lastItem = undefined;
+    for (let i=0 ; i < squares.length; i++) {
+        if (testAABB(mousePosition, squares[i])) {
+            lastItem = i;
         }
-    })
-
-    if (itemToToggle) {
-        currentItem = itemToToggle;
-        itemOffset.x = itemToToggle.position.xA - mousePosition.x;
-        itemOffset.y = itemToToggle.position.yA - mousePosition.y;
     }
+    selected = lastItem;
+
+    if (selected == undefined) return;
+        itemOffset.x = squares[selected].position.xA - mousePosition.x;
+        itemOffset.y = squares[selected].position.yA - mousePosition.y;
 }
 
 let handle_clickUp = () => {
-    currentItem = false;
+    selected = undefined; // Change to undefined
     itemOffset = { x: 0, y: 0 };
-    console.log(itemOffset);
-}
+};
 
-let handle_click = () => {
-    if (state) {
-        handle_clickDown();
-    } else {
-        handle_clickUp();
-    }
-    state = !state;
-}
-onclick = handle_click;
-
-// onmousedown = handle_clickDown;
-// onmouseup = handle_clickUp;
+canvas.onmousedown = handle_clickDown;
+canvas.onmouseup = handle_clickUp;
 
 let rect = canvas.getBoundingClientRect();
 let mousePosition = { x: 0, y: 0 };
-
-document.addEventListener("mousemove", (event) => {
-    mousePosition.x = event.clientX - rect.left;
-    mousePosition.y = event.clientY - rect.top;
-});
 
 let testAABB = (mouse, item) => {
     if (mouse.x > item.position.xA && mouse.x < item.position.xB && mouse.y > item.position.yA && mouse.y < item.position.yB) {
@@ -76,21 +55,27 @@ class Square {
 
 let squares = [];
 
-let square1 = new Square(100, 100, 'red');
-let square2 = new Square(200, 100, 'blue');
+let square1 = new Square(100, 100, 'blue');
+let square2 = new Square(200, 100, 'red');
+let square3 = new Square(100, 200, 'magenta');
+let square4 = new Square(200, 200, 'lime');
 
+squares.push(square1, square2, square3, square4);
 
-squares.push(square1, square2);
+canvas.onmousemove = (event) => {
+    mousePosition.x = event.clientX - rect.left;
+    mousePosition.y = event.clientY - rect.top;
+
+    if (selected != undefined) {
+        squares[selected].position.xA = mousePosition.x + itemOffset.x;
+        squares[selected].position.yA = mousePosition.y + itemOffset.y;
+        squares[selected].position.xB = squares[selected].position.xA + Square.width;
+        squares[selected].position.yB = squares[selected].position.yA + Square.width;
+    }
+}
 
 let main_loop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (state && currentItem != false) {
-        squares[currentItemIndex].position.xA = mousePosition.x + itemOffset.x;
-        squares[currentItemIndex].position.yA = mousePosition.y + itemOffset.y;
-        squares[currentItemIndex].position.xB = mousePosition.x + itemOffset.x + Square.width;
-        squares[currentItemIndex].position.yB = mousePosition.y + itemOffset.y + Square.width;
-    };
 
     squares.forEach(square => {
         square.draw();
@@ -98,6 +83,7 @@ let main_loop = () => {
 
     setTimeout(() => {
         window.requestAnimationFrame(main_loop);
-    }, 1000);
-}
+    }, 10);
+};
+
 window.requestAnimationFrame(main_loop);
