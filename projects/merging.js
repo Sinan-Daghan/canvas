@@ -11,8 +11,13 @@ let handle_clickDown = () => {
     selected = lastItem;
 
     if (selected == undefined) return;
-        itemOffset.x = squares[selected].position.xA - mousePosition.x;
-        itemOffset.y = squares[selected].position.yA - mousePosition.y;
+    itemOffset.x = squares[selected].position.xA - mousePosition.x;
+    itemOffset.y = squares[selected].position.yA - mousePosition.y;
+    if (selectionState) {
+        selectedItems.push(squares[selected]);
+    } else {
+        selectedItems = selectedItems.filter(item => item != squares[selected]);
+    }
 }
 
 let handle_clickUp = () => {
@@ -35,7 +40,7 @@ let testAABB = (mouse, item) => {
 
 class Square {
     static width = 50;
-    constructor(x, y, color) {
+    constructor(x, y, color, name) {
         this.position = {
             xA: x,
             yA: y,
@@ -43,6 +48,7 @@ class Square {
             yB: y + Square.width
     }
         this.color = color;
+        this.name = name;
     }
 
     draw() {
@@ -51,16 +57,33 @@ class Square {
         ctx.fillStyle = this.color;
         ctx.fill();
     }
+
+    highlight() {
+        ctx.beginPath();
+        ctx.rect(this.position.xA, this.position.yA, Square.width, Square.width);
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
 }
 
 let squares = [];
 
 let square1 = new Square(100, 100, 'blue');
-let square2 = new Square(200, 100, 'red');
+let square2 = new Square(200, 100, 'orange');
 let square3 = new Square(100, 200, 'magenta');
 let square4 = new Square(200, 200, 'lime');
 
 squares.push(square1, square2, square3, square4);
+
+let selectedItems = [];
+let selectionState = false;
+
+let toggleSelection = () => {
+    selectionState = !selectionState;
+    toggleSelection_button.style.border = selectionState ? '2px solid red' : '2px solid black';
+}
+let toggleSelection_button = create_button('Toggle Selection', canvas_interface, toggleSelection);
 
 canvas.onmousemove = (event) => {
     mousePosition.x = event.clientX - rect.left;
@@ -81,6 +104,11 @@ let main_loop = () => {
         square.draw();
     });
 
+    if (selectedItems.length > 0) {
+        selectedItems.forEach(item => {
+            item.highlight();
+        })
+    }
     setTimeout(() => {
         window.requestAnimationFrame(main_loop);
     }, 10);
