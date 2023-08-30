@@ -33,8 +33,28 @@ class Square {
     }
 }
 
+let counter = create_button('Squares : 0', canvas_interface, () => {});
+let update_counter = () => {
+    counter.innerText = `Squares : ${squares.length}`;
+};
+
 let squares = [];
-for (let i = 0; i < 30; i++) squares.push(new Square());
+create_button('Create 10 Squares', canvas_interface, () => {
+    for (let i = 0; i < 10; i++) squares.push(new Square());
+    update_counter();
+});
+create_button('Create 1 Square', canvas_interface, () => {
+    squares.push(new Square());
+    update_counter();
+});
+create_button('Remove 1 Square', canvas_interface, () => {
+    squares.pop();
+    update_counter();
+});
+create_button('Remove All \n Squares', canvas_interface, () => {
+    squares = [];
+    update_counter();
+});
 
 renderLoop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
