@@ -1,4 +1,3 @@
-let id;
 class Bird {
     static gravity = new Vector(0, 0.5);
     static Yspeed = -50;
@@ -116,7 +115,8 @@ let main_loop = () => {
         Bird.gravity.y = 0;
         window.cancelAnimationFrame(id);
     }
-
-    id = window.requestAnimationFrame(main_loop);
+    setTimeout(() => {
+        id = window.requestAnimationFrame(main_loop);
+    }, 3);
 };
 id = window.requestAnimationFrame(main_loop);
