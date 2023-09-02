@@ -4,6 +4,7 @@ class Square {
         this.y = y;
         this.step = 1;
         this.color = 'rgba(0,0,0,1)';
+        this.colorAngle = 0;
     }
     move() {
         const random = Math.random();
@@ -20,6 +21,13 @@ class Square {
     draw() {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, 1, 1);
+        if (color) {
+            if (this.colorAngle > 360) this.colorAngle = 0;
+            this.color = `hsl(${this.colorAngle}, 100%, 50%)`;
+            this.colorAngle++;
+        } else {
+            this.color = 'rgba(0,0,0,1)';
+        }
     }
 }
 
@@ -48,4 +56,9 @@ create_button('-', canvas_interface, () => {
         square.step --
     }
     button_step.innerText = 'step : ' + square.step;
+});
+
+let color = false;
+create_button ('Color', canvas_interface, () => {
+    color = !color;
 });
