@@ -78,6 +78,18 @@ let create_button = (name, parent, callback) => {
     return button;
 }
 
+let create_slider = (name, parent, min, max, value, step) => {
+let slider = document.createElement('input');
+slider.type = 'range';
+slider.min = min;
+slider.max = max;
+slider.value = value;
+slider.step = step;
+slider.id = 'slider_' + name.replace(/\s+/g, '');
+parent.appendChild(slider);
+return slider;
+}
+
 home_buton_click_callback = () => {
     hide_canvas();
     hide_home_button();
