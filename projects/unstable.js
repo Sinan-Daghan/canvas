@@ -6,6 +6,14 @@ let down = new Vector(0, 5);
 
 let gravity = new Vector(0, 0.1);
 
+color = false;
+btn = create_button("Color", canvas_interface, () => {
+    color = !color;
+    color ? btn.style.border = "2px solid red" : btn.style.border = "none";
+});
+
+
+
 let AABBB = (A, B) => {
     if (A.position.x1 < B.position.x2 && A.position.x2 > B.position.x1 && A.position.y1 < B.position.y2 && A.position.y2 > B.position.y1) {
         return true;
@@ -20,14 +28,21 @@ class Player {
         this.x2 = this.position.x + this.width;
         this.y1 = this.position.y;
         this.y2 = this.position.y + this.height;
-
+        
         this.velocity = new Vector(0, 0);
         this.width = 50;
         this.height = 50;
+
+        this.color = 0;
+        this.increment = 1;
+    }
+    colorCube() {
+        this.color = `hsl(${this.increment}, 50%, 50%)`;
+        this.increment ++;
     }
     draw() {
         ctx.beginPath();
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
     update() {
@@ -86,6 +101,8 @@ main_loop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.update();
     player.draw();
+
+    if (color) player.colorCube();
 
     setTimeout(() => {
         window.requestAnimationFrame(main_loop);
