@@ -7,11 +7,19 @@ let down = new Vector(0, 5);
 let gravity = new Vector(0, 0.1);
 
 color = false;
-btn = create_button("Color", canvas_interface, () => {
+colormap = false;
+
+btn = create_button("ColorGradient", canvas_interface, () => {
+    if (colormap) return;
     color = !color;
     color ? btn.style.border = "2px solid red" : btn.style.border = "none";
 });
 
+btnColormap = create_button("ColorMap", canvas_interface, () => {
+    if (color) return;
+    colormap = !colormap;
+    colormap ? btnColormap.style.border = "2px solid red" : btnColormap.style.border = "none";
+});
 
 
 let AABBB = (A, B) => {
@@ -39,6 +47,9 @@ class Player {
     colorCube() {
         this.color = `hsl(${this.increment}, 50%, 50%)`;
         this.increment ++;
+    }
+    colorMap() {
+        this.color = `hsl(${this.position.x / 2 }, 50%, 50%)`;
     }
     draw() {
         ctx.beginPath();
@@ -103,6 +114,7 @@ main_loop = () => {
     player.draw();
 
     if (color) player.colorCube();
+    if (colormap) player.colorMap();
 
     setTimeout(() => {
         window.requestAnimationFrame(main_loop);
