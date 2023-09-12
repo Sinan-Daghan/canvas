@@ -1,7 +1,14 @@
 let isClearBackground = true;
+let drawSquareEdge = false;
 
-create_button('Clear Background', canvas_interface, () => {
+let btn_clearBackground = create_button('Clear Background \n OFF', canvas_interface, () => {
     isClearBackground = !isClearBackground;
+    isClearBackground ? btn_clearBackground.innerText = 'Clear Background \n ON' : btn_clearBackground.innerText = 'Clear Background \n OFF';
+});
+
+let btn_drawSquareEdge = create_button('Draw Square Edge \n OFF', canvas_interface, () => {
+    drawSquareEdge = !drawSquareEdge;
+    drawSquareEdge ? btn_drawSquareEdge.innerText = 'Draw Square Edge \n ON' : btn_drawSquareEdge.innerText = 'Draw Square Edge \n OFF';
 });
 
 class Square {
@@ -42,7 +49,10 @@ class Square {
     draw(){
         ctx.beginPath();
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.width);
+        ctx.rect(this.position.x, this.position.y, this.width, this.width);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        if (drawSquareEdge ) ctx.stroke();
     }
 }
 let square = new Square(10,100, 50, 'red');
