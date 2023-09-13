@@ -1,5 +1,6 @@
 let isClearBackground = true;
 let drawSquareEdge = false;
+let continuous = false;
 
 let btn_clearBackground = create_button('Clear Background \n OFF', canvas_interface, () => {
     isClearBackground = !isClearBackground;
@@ -10,6 +11,20 @@ let btn_drawSquareEdge = create_button('Draw Square Edge \n OFF', canvas_interfa
     drawSquareEdge = !drawSquareEdge;
     drawSquareEdge ? btn_drawSquareEdge.innerText = 'Draw Square Edge \n ON' : btn_drawSquareEdge.innerText = 'Draw Square Edge \n OFF';
 });
+
+let btn_continuous = create_button('Discontinuous', canvas_interface, () => {
+    drawSquareEdge = !drawSquareEdge;
+    drawSquareEdge ? btn_continuous.innerText = 'Discontinuous' : btn_continuous.innerText = 'Continuous';
+});
+
+maxstep = 5;
+
+let slider = create_slider("Number of Lines", canvas_interface, 1, 50, 5, 1);
+slider.addEventListener("input", () => {
+    maxstep = parseInt(slider.value);
+    console.log(maxstep);
+});
+
 
 class Square {
     constructor(x, y, width, color) {
@@ -39,7 +54,7 @@ class Square {
             this.position.y = canvas.height - this.width;
             this.velocity.y *= -1;
         }
-        if (this.step > 10) {
+        if (this.step > maxstep) {
             this.step = 0;
             this.h = this.h + 10;
             this.color = `hsl(${this.h}, 50%, 50%)`
@@ -47,12 +62,13 @@ class Square {
         this.step ++;
     }
     draw(){
+        if ( drawSquareEdge && this.step < maxstep ) return;
         ctx.beginPath();
         ctx.fillStyle = this.color;
         ctx.rect(this.position.x, this.position.y, this.width, this.width);
         ctx.fillStyle = this.color;
         ctx.fill();
-        if (drawSquareEdge ) ctx.stroke();
+        if ( drawSquareEdge ) ctx.stroke();
     }
 }
 let square = new Square(10,100, 50, 'red');
