@@ -1,3 +1,10 @@
+let continuous = false;
+let btn_continuous = create_button('Continuous', canvas_interface, () => {
+    continuous = !continuous;
+    continuous ? btn_continuous.style.border = "2px solid red" : btn_continuous.style.border = "none";
+});
+
+let previous_point = { x: 0, y: 0 };
 class Square {
     constructor(x, y) {
         this.x = x;
@@ -19,6 +26,7 @@ class Square {
         }
     }
     draw() {
+        ctx.beginPath();
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, 1, 1);
         if (color) {
@@ -28,6 +36,15 @@ class Square {
         } else {
             this.color = 'rgba(0,0,0,1)';
         }
+        if (continuous)  {
+            ctx.beginPath();
+            ctx.strokeStyle = this.color;
+            ctx.moveTo(previous_point.x, previous_point.y);
+            ctx.lineTo(this.x, this.y);
+            ctx.stroke();                
+        }
+        previous_point.x = this.x;
+        previous_point.y = this.y;
     }
 }
 
@@ -59,6 +76,7 @@ create_button('-', canvas_interface, () => {
 });
 
 let color = false;
-create_button ('Color', canvas_interface, () => {
+let btn_color = create_button ('Color', canvas_interface, () => {
     color = !color;
+    color ? btn_color.style.border = "2px solid red" : btn_color.style.border = "none";
 });
