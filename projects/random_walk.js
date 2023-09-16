@@ -41,7 +41,7 @@ class Square {
             ctx.strokeStyle = this.color;
             ctx.moveTo(previous_point.x, previous_point.y);
             ctx.lineTo(this.x, this.y);
-            ctx.stroke();                
+            ctx.stroke();
         }
         previous_point.x = this.x;
         previous_point.y = this.y;
@@ -61,19 +61,29 @@ window.requestAnimationFrame(main_loop);
 
 let button_step = create_button('step : 1', canvas_interface, null)
 
-create_button('+', canvas_interface, () => {
+let box = document.createElement('div');
+box.style.display = 'flex';
+box.style.gap = '30px';
+canvas_interface.appendChild(box);
+
+let plus = create_button('+', box, () => {
     if (square.step < 30) {
         square.step ++;
     }
     button_step.innerText = 'step : ' + square.step;
 });
 
-create_button('-', canvas_interface, () => {
+let minus = create_button('-', box, () => {
     if (square.step > 1) {
         square.step --
     }
     button_step.innerText = 'step : ' + square.step;
 });
+
+plus.style.width = '50px';
+plus.style.height = '50px';
+minus.style.width = '50px';
+minus.style.height = '50px';
 
 let color = false;
 let btn_color = create_button ('Color', canvas_interface, () => {
