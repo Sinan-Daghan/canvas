@@ -84,11 +84,30 @@ let draw_Vector = (Vector) => {
     ctx.stroke();
 }
 
-let draw_Vstart_Vend = (Vstart, Vend) => {
+let draw_Vstart_Vend = (Vstart, Vend, arrow=false, color='black') => {
     ctx.beginPath();
     ctx.moveTo(Vstart.x, Vstart.y);
     ctx.lineTo(Vend.x, Vend.y);
+    ctx.strokeStyle = color;
     ctx.stroke();
+
+    if (arrow) {
+        ctx.beginPath();
+        let vector = Vend.sub(Vstart);
+
+        ctx.moveTo(Vend.x, Vend.y);
+
+        let vertexA = vector.rotate(5 * Math.PI / 6).normalize(10);
+        ctx.lineTo(Vend.x + vertexA.x, Vend.y + vertexA.y);
+
+        let vertexB = vector.rotate(-5 * Math.PI / 6).normalize(10);
+        ctx.lineTo(Vend.x + vertexB.x, Vend.y + vertexB.y);
+
+        ctx.lineTo(Vend.x, Vend.y);
+
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
 }
 
 // A = vector A , B = vector B
