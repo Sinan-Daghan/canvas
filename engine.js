@@ -123,12 +123,31 @@ let angle_between = (A, B) => {
     return Math.acos(dot / (magnitude_A * magnitude_B));
 }
 
-function draw_Vstart_Vector(Vstart, Vector) {
+let draw_Vstart_Vector = (Vstart, Vector, arrow=false, color='black') => {
     ctx.beginPath();
     ctx.moveTo(Vstart.x, Vstart.y);
     let Vend = Vstart.add(Vector);
     ctx.lineTo(Vend.x, Vend.y);
+    ctx.strokeStyle = color;
     ctx.stroke();
+
+    if (arrow) {
+        ctx.beginPath();
+        let vector = Vend.sub(Vstart);
+
+        ctx.moveTo(Vend.x, Vend.y);
+
+        let vertexA = vector.rotate(5 * Math.PI / 6).normalize(10);
+        ctx.lineTo(Vend.x + vertexA.x, Vend.y + vertexA.y);
+
+        let vertexB = vector.rotate(-5 * Math.PI / 6).normalize(10);
+        ctx.lineTo(Vend.x + vertexB.x, Vend.y + vertexB.y);
+
+        ctx.lineTo(Vend.x, Vend.y);
+
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
 }
 
 function create_grid(width, height, step) {
