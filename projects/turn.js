@@ -23,6 +23,12 @@ let Vmouse = new Vector(0, 0);
 let VcenterScreen = new Vector(window.innerWidth / 2, window.innerHeight / 2);
 let VcenterMouse = new Vector(0, 0);
 
+let clockwise = false;
+let btn_clockwise = create_button('Clockwise', canvas_interface, () => {
+    clockwise = !clockwise;
+    clockwise ? btn_clockwise.style.border = "2px solid red" : btn_clockwise.style.border = "none";
+});
+
 onmousemove = (e) => {
     Vmouse.x = e.clientX;
     Vmouse.y = e.clientY;
@@ -30,9 +36,11 @@ onmousemove = (e) => {
 
     let cosAngle = VcenterMouse.x / VcenterMouse.get_magnitude();
     angle = Math.acos(cosAngle);
-    if (VcenterMouse.y > 0) {
+
+    if ((clockwise && VcenterMouse.y < 0) || (!clockwise && VcenterMouse.y > 0)) {
         angle = 2 * Math.PI - angle;
     }
+
     angleDeg = angle * 180 / Math.PI;
 }
 
