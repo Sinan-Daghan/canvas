@@ -52,7 +52,10 @@ let render_loop = () => {
     setTimeout(() => {
         angle += increment;
         if (angle < -Math.PI * 2) angle = 0;
+        btn_angle.innerText = `Angle: ${Math.abs(Math.round(angle * 180 / Math.PI))}°`;
         window.requestAnimationFrame(render_loop);
     }, 10);
 }
+
+let btn_angle = create_button('Angle: 0°', canvas_interface, null);
 window.requestAnimationFrame(render_loop);
