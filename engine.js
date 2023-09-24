@@ -288,6 +288,15 @@ class Vec3 {
         let z = matrix[0][2] * this.x + matrix[1][2] * this.y + matrix[2][2] * this.z;
         return new Vec3(x, y, z);
     }
+    add(vector) {
+        return new Vec3(this.x + vector.x, this.y + vector.y, this.z + vector.z);
+    }
+    sub(vector) {
+        return new Vec3(this.x - vector.x, this.y - vector.y, this.z - vector.z);
+    }
+    mult(scalar) {
+        return new Vec3(this.x * scalar, this.y * scalar, this.z * scalar);
+    }
 }
 
 // Rotation matrices
