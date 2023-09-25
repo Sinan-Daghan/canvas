@@ -297,6 +297,13 @@ class Vec3 {
     mult(scalar) {
         return new Vec3(this.x * scalar, this.y * scalar, this.z * scalar);
     }
+    get_magnitude() {
+        return Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2);
+    }
+    normalize(scalar = 1) {
+        let magnitude = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2);
+        return new Vec3((this.x / magnitude) * scalar, (this.y / magnitude) * scalar, (this.z / magnitude) * scalar);
+    }
 }
 
 // Rotation matrices
