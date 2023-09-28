@@ -31,4 +31,16 @@ script.onload = function () {
     window.requestAnimationFrame(render_loop);
 };
 
+let perlinMinStep = 0.001;
+let perlinMaxStep = 0.03;
+let step = create_slider('step', canvas_interface, perlinMinStep, perlinMaxStep, perlinMinStep, 0.001);
+let step_value = create_button('Step : ' + perlinMinStep, canvas_interface, null);
+step_value.style.backgroundColor = 'rgba(0,0,0,0)';
+step_value.style.borderRadius = '0px';
+step.oninput = () => {
+    noise_x_increment = parseFloat(step.value);
+    console.log(noise_x_increment);
+    step_value.innerText = 'Step : ' + step.value;
+}
+
 document.head.appendChild(script);
