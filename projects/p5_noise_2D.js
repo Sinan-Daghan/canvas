@@ -21,22 +21,15 @@ script.onload = function () {
             for (let x = 0; x < canvas.width; x++) {
                 let index = y * canvas.width * 4 + x * 4;
                 let perlinPixel = sketch.noise(xoff, yoff) * 255;
-                data[index]     = perlinPixel;
-                data[index + 1] = perlinPixel;
-                data[index + 2] = perlinPixel;
+
+                data.fill(perlinPixel, index, index + 3)
                 data[index + 3] = 255;
 
                 if (HighPass && perlinPixel < zCut){
-                    data[index]     = 255;
-                    data[index + 1] = 255;
-                    data[index + 2] = 255;
-                    data[index + 3] = 255;
+                    data.fill(255, index, index + 4)
                 }
                 if (!HighPass && perlinPixel > zCut){
-                    data[index]     = 255;
-                    data[index + 1] = 255;
-                    data[index + 2] = 255;
-                    data[index + 3] = 255;
+                    data.fill(255, index, index + 4)
                 }
                 xoff += increment;
             }
@@ -72,5 +65,10 @@ slider_zCut.addEventListener('input', () => {
     btn_zPlane.innerText = `Z : ${zCut}`;
 }
 );
+
+let btn_filer = create_button('High Pass', canvas_interface, () => {
+    HighPass = !HighPass;
+    HighPass ? btn_filer.innerText = 'High Pass' : btn_filer.innerText = 'Low Pass';
+});
 
 document.head.appendChild(script);
