@@ -3,6 +3,7 @@ script.src = "https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js";
 
 let increment = 0.01;
 let zCut = 100;
+let HighPass = true;
 
 script.onload = function () {
     let sketch = new p5();
@@ -25,7 +26,13 @@ script.onload = function () {
                 data[index + 2] = perlinPixel;
                 data[index + 3] = 255;
 
-                if (perlinPixel < zCut) {
+                if (HighPass && perlinPixel < zCut){
+                    data[index]     = 255;
+                    data[index + 1] = 255;
+                    data[index + 2] = 255;
+                    data[index + 3] = 255;
+                }
+                if (!HighPass && perlinPixel > zCut){
                     data[index]     = 255;
                     data[index + 1] = 255;
                     data[index + 2] = 255;
