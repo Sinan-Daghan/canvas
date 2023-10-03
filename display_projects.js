@@ -98,6 +98,33 @@ parent.appendChild(slider);
 return slider;
 }
 
+let create_radio = (name, legendText, radioList, parent) => {
+    let fieldset = document.createElement('fieldset');
+    fieldset.id = 'radioField_' + name.replace(/\s+/g, '');
+    fieldset.style.display = 'flex';
+    fieldset.style.flexDirection = 'column';
+
+    let legend = document.createElement('legend');
+    legend.innerText = legendText;
+    fieldset.appendChild(legend);
+
+    radioList.forEach(radio => {
+        let radioElement = document.createElement('input');
+        radioElement.type = 'radio';
+        radioElement.name = name;
+        radioElement.value = radio;
+        radioElement.id = 'radio_' + radio.replace(/\s+/g, '');
+
+        let label = document.createElement('label');
+        label.setAttribute('for', radioElement.id);
+        label.innerText = radio;
+
+        fieldset.appendChild(radioElement);
+        fieldset.appendChild(label);
+    });
+    parent.appendChild(fieldset);
+}
+
 home_buton_click_callback = () => {
     hide_canvas();
     hide_home_button();
