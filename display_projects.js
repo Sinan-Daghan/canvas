@@ -113,7 +113,6 @@ let create_radio = (name, legendText, radioList, parent) => {
         radioElement.type = 'radio';
         radioElement.name = name;
         radioElement.value = radio;
-        radioElement.id = 'radio_' + radio.replace(/\s+/g, '');
 
         let label = document.createElement('label');
         label.setAttribute('for', radioElement.id);
@@ -121,6 +120,13 @@ let create_radio = (name, legendText, radioList, parent) => {
 
         fieldset.appendChild(radioElement);
         fieldset.appendChild(label);
+
+        if (Array.isArray(radio)) {
+            radioElement.id = 'radio_' + radio[0].replace(/\s+/g, '');
+            radioElement.addEventListener('click', radio[1]);
+        } else {
+            radioElement.id = 'radio_' + radio.replace(/\s+/g, '');
+        }
     });
     parent.appendChild(fieldset);
 }
