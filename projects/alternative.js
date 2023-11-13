@@ -23,23 +23,40 @@ for (let i = 0; i < atoms; i++) {
 }
 
 let angle = Math.PI / 2;
-angleIncrement = 2 * Math.PI / 720;
+let angleIncrement = 2 * Math.PI / 720;
 
 let length = circles.length;
+let fps = 60;
+let elapsedMs = 0;
+let lastFrameMs = new Date().getTime();
 
 let main_loop = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (angle >= 2 * Math.PI) angle = 0;
-    angle += angleIncrement;
+    if (elapsedMs < (1000 / fps)) {
+        elapsedMs = new Date().getTime() - lastFrameMs;
+        setTimeout(main_loop, 20);
+    } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (angle >= 2 * Math.PI) angle = 0;
+        angle += angleIncrement;
 
-    circles[0].y = Math.cos(angle) * 100 + canvas.height / 2;
-    circles[0].draw();
+        circles[0].y = Math.cos(angle) * 100 + canvas.height / 2;
+        circles[0].draw();
 
-    for (let i = length - 1; i >= 1; i--) {
-        circles[i].y = circles[i - 1].y;
-        circles[i].draw();
+        for (let i = length - 1; i >= 1; i--) {
+            circles[i].y = circles[i - 1].y;
+            circles[i].draw();
+        }
+        elapsedMs = 0;
+        lastFrameMs = new Date().getTime();
+        main_loop();
     }
-    window.requestAnimationFrame(main_loop);
 }
+window.requestAnimationFrame(main_loop);
+
+create_slider('Atoms', canvas_interface, 10, 180, 30, 1).addEventListener('input', (e) => {
+    fps = e.target.value;
+    console.log(fps);
+});
+
 window.requestAnimationFrame(main_loop);
