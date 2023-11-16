@@ -7,6 +7,7 @@ let canvasCorner = new Vector(boxCanvas.x, boxCanvas.y);
 let v1 = new Vector(0, 0);
 let v2 = new Vector(0, 0);
 let Vmouse = new Vector(0, 0);
+let vectorColor = "black";
 
 onmousedown = (e) => {
     clickCount++;
@@ -21,12 +22,12 @@ onmousedown = (e) => {
     clickCount = 0;
     v1 = v1.sub(canvasCorner);
     v2 = v2.sub(canvasCorner);
-
+    ctx.beginPath();
     ctx.moveTo(v1.x, v1.y);
     ctx.lineTo(v2.x, v2.y);
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = vectorColor;
     ctx.stroke();
-
+    vectorColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
     v1 = new Vector(0, 0);
     v2 = new Vector(0, 0);
 }
