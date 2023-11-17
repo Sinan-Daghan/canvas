@@ -8,6 +8,21 @@ let v1 = new Vector(0, 0);
 let v2 = new Vector(0, 0);
 let Vmouse = new Vector(0, 0);
 let vectorColor = "black";
+class colorPicker {
+    static width = 30;
+    constructor(x,y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.width = colorPicker.width;
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.rect(this.x, this.y, colorPicker.width, colorPicker.width);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+}
 
 onmousedown = (e) => {
     clickCount++;
