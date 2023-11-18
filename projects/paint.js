@@ -1,4 +1,3 @@
-
 let clickCount = 0;
 
 let boxCanvas = canvas.getBoundingClientRect();
@@ -22,6 +21,13 @@ class colorPicker {
         ctx.fillStyle = this.color;
         ctx.fill();
     }
+}
+
+let AABB = (V1, V2, Vmouse) => {
+    if (Vmouse.x > V1.x && Vmouse.x < V2.x && Vmouse.y > V1.y && Vmouse.y < V2.y) {
+        return true;
+    }
+    return false;
 }
 
 onmousedown = (e) => {
