@@ -20,20 +20,57 @@ class colorPicker {
         ctx.rect(this.x, this.y, colorPicker.width, colorPicker.width);
         ctx.fillStyle = this.color;
         ctx.fill();
+        ctx.strokeStyle = "black";
+        ctx.stroke();
     }
 }
 
+isRandomColor = false;
+
+let colorPickers = []
+let blue = new colorPicker(10, 10, "blue");
+colorPickers.push(blue);
+
+let drawColorPickers = () => {
+    colorPickers.forEach(e => {
+        e.draw();
+    });
+}
+drawColorPickers();
 let AABB = (V1, V2, Vmouse) => {
     if (Vmouse.x > V1.x && Vmouse.x < V2.x && Vmouse.y > V1.y && Vmouse.y < V2.y) {
         return true;
     }
+    console.log("V1:", V1.x, V1.y);
+    console.log("V2:", V2.x, V2.y);
+    console.log("Vmouse:", Vmouse.x, Vmouse.y);
     return false;
+};
+
+
+AABBpickerMouse = (picker, Vmouse) => {
+    if (AABB(new Vector(picker.x, picker.y), new Vector(picker.x + picker.width, picker.y + picker.width), Vmouse)) {
+        vectorColor = picker.color;
+        nextColor = picker.color;
+        console.log("collision");
+    } else {
+        console.log("NO collision");
+    }
 }
+
+testCollisionWithAllColorPickers = (Vmouse) => {
+    colorPickers.forEach(picker => {
+        AABBpickerMouse(picker, Vmouse);
+    });
+}
+currentColor = "black";
+nextColor = "black";
 
 onmousedown = (e) => {
     clickCount++;
+    vectorColor = currentColor;
     Vmouse = new Vector(e.clientX, e.clientY);
-
+    testCollisionWithAllColorPickers(Vmouse.sub(canvasCorner));
     if (clickCount == 1) {
         v1 = Vmouse;
         return;
@@ -48,7 +85,11 @@ onmousedown = (e) => {
     ctx.lineTo(v2.x, v2.y);
     ctx.strokeStyle = vectorColor;
     ctx.stroke();
-    vectorColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+    if (isRandomColor) vectorColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+    drawColorPickers();
+
     v1 = new Vector(0, 0);
     v2 = new Vector(0, 0);
+    ctx.closePath();
+    currentColor = nextColor;
 }
