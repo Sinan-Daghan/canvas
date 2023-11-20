@@ -1,4 +1,3 @@
-
 let angle = 0;
 let angle_increment = Math.pi / 180;
 
@@ -9,6 +8,35 @@ generator = {
         ctx.beginPath();
         ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
         ctx.strokeStyle = 'black';
+        ctx.stroke();
+    }
+}
+
+class Diode {
+    //distance from center to each triangle vertex
+    static radius = 10;
+
+    constructor(Vstart, Vend, color) {
+        this.Vstart = Vstart;
+        this.Vend = Vend;
+        this.color = color;
+        this.VstartVend = Vend.sub(Vstart);
+        this.center = this.VstartVend.div(2).add(this.Vstart);
+        //ns = normalized and scale VstartVend by Diode.radius
+        this.ns = this.VstartVend.normalize(Diode.radius);
+        this.vertexA = this.ns.add(this.center);
+        this.vertexB = this.ns.rotate(2 * Math.PI / 3).add(this.center);
+        this.vertexC = this.ns.rotate(-2 * Math.PI / 3).add(this.center);
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.vertexA.x, this.vertexA.y);
+        ctx.lineTo(this.vertexB.x, this.vertexB.y);
+        ctx.lineTo(this.vertexC.x, this.vertexC.y);
+        ctx.lineTo(this.vertexA.x, this.vertexA.y);
+        ctx.moveTo(this.Vstart.x, this.Vstart.y);
+        ctx.lineTo(this.Vend.x, this.Vend.y);
+        ctx.strokeStyle = this.color;
         ctx.stroke();
     }
 }
