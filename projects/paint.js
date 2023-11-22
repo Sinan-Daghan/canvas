@@ -41,12 +41,8 @@ let AABB = (V1, V2, Vmouse) => {
     if (Vmouse.x > V1.x && Vmouse.x < V2.x && Vmouse.y > V1.y && Vmouse.y < V2.y) {
         return true;
     }
-    console.log("V1:", V1.x, V1.y);
-    console.log("V2:", V2.x, V2.y);
-    console.log("Vmouse:", Vmouse.x, Vmouse.y);
     return false;
 };
-
 
 AABBpickerMouse = (picker, Vmouse) => {
     if (AABB(new Vector(picker.x, picker.y), new Vector(picker.x + picker.width, picker.y + picker.width), Vmouse)) {
@@ -92,4 +88,20 @@ onmousedown = (e) => {
     v2 = new Vector(0, 0);
     ctx.closePath();
     currentColor = nextColor;
+}
+
+let drawCursor = (eMouse) => {
+    Vmouse = new Vector(eMouse.clientX, eMouse.clientY).sub(canvasCorner);
+    ctx.beginPath();
+    ctx.rect(Vmouse.x - 6, Vmouse.y - 1, 12, 2);
+    ctx.rect(Vmouse.x - 1, Vmouse.y - 6, 2, 12);
+    ctx.fillStyle = "black";
+    ctx.fill();
+    ctx.closePath();
+}
+
+onmousemove = (eMouse) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawColorPickers();
+    drawCursor(eMouse);
 }
