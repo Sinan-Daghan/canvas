@@ -90,11 +90,23 @@ onmousedown = (e) => {
     currentColor = nextColor;
 }
 
+let cursorWidth = 12;
+let cursorHeight = 2;
+let halfCursorWidth = cursorWidth / 2;
+let halfCursorHeight = cursorHeight / 2;
+
+let changeCursorSize = (width, height) => {
+    cursorWidth = width;
+    cursorHeight = height;
+    halfCursorWidth = cursorWidth / 2;
+    halfCursorHeight = cursorHeight / 2;
+}
+
 let drawCursor = (eMouse) => {
     Vmouse = new Vector(eMouse.clientX, eMouse.clientY).sub(canvasCorner);
     ctx.beginPath();
-    ctx.rect(Vmouse.x - 6, Vmouse.y - 1, 12, 2);
-    ctx.rect(Vmouse.x - 1, Vmouse.y - 6, 2, 12);
+    ctx.rect(Vmouse.x - halfCursorWidth, Vmouse.y - halfCursorHeight, cursorWidth, cursorHeight);
+    ctx.rect(Vmouse.x - halfCursorHeight, Vmouse.y - halfCursorWidth, cursorHeight, cursorWidth);
     ctx.fillStyle = "black";
     ctx.fill();
     ctx.closePath();
