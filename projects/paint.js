@@ -24,6 +24,21 @@ class colorPicker {
         ctx.stroke();
     }
 }
+class Line {
+    constructor(v1, v2, color) {
+        this.v1 = v1;
+        this.v2 = v2;
+        this.color = color;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.v1.x, this.v1.y);
+        ctx.lineTo(this.v2.x, this.v2.y);
+        ctx.strokeStyle = this.color;
+        ctx.stroke();
+        ctx.closePath();
+    }
+}
 
 isRandomColor = false;
 
@@ -61,6 +76,7 @@ testCollisionWithAllColorPickers = (Vmouse) => {
 }
 currentColor = "black";
 nextColor = "black";
+let drawed = [];
 
 onmousedown = (e) => {
     clickCount++;
