@@ -95,6 +95,7 @@ onmousedown = (e) => {
     ctx.beginPath();
     ctx.moveTo(v1.x, v1.y);
     ctx.lineTo(v2.x, v2.y);
+    drawed.push(new Line(v1, v2, vectorColor));
     ctx.strokeStyle = vectorColor;
     ctx.stroke();
     if (isRandomColor) vectorColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
@@ -131,5 +132,8 @@ let drawCursor = (eMouse) => {
 onmousemove = (eMouse) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawColorPickers();
+    drawed.forEach(line => {
+        line.draw();
+    });
     drawCursor(eMouse);
 }
