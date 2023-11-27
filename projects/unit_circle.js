@@ -29,6 +29,9 @@ let sinus = new Vector(0, 0);
 let cosinus = new Vector(0, 0);
 let hypotenuse = new Vector(0, 0);
 
+let sinus2 = new Vector(0, 0);
+let cosinus2 = new Vector(0, 0);
+let hypotenuse2 = new Vector(0, 0);
 
 let render_loop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -44,10 +47,24 @@ let render_loop = () => {
     ctx.strokeStyle = 'black';
     ctx.stroke();
 
-
     draw_Vstart_Vector(Vcenter, sinus.mult(r), true, 'blue');
     draw_Vstart_Vector(Vcenter, cosinus.mult(r), true, 'red');
     draw_Vstart_Vector(Vcenter, hypotenuse.mult(r), true, 'purple');
+
+    sinus2.y = Math.sin(angle + Math.PI / 2);
+    cosinus2.x = Math.cos(angle + Math.PI / 2);
+    hypotenuse2.x = cosinus2.x;
+    hypotenuse2.y = sinus2.y;
+
+    ctx.beginPath();
+    ctx.arc(Vcenter.x, Vcenter.y, r, 0, Math.PI * 2);
+    ctx.rect(Vcenter.x, Vcenter.y, Math.cos(angle + Math.PI / 2) * r, Math.sin(angle + Math.PI / 2) * r);
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+
+    draw_Vstart_Vector(Vcenter, sinus2.mult(r), true, 'blue');
+    draw_Vstart_Vector(Vcenter, cosinus2.mult(r), true, 'red');
+    draw_Vstart_Vector(Vcenter, hypotenuse2.mult(r), true, 'purple');
 
     setTimeout(() => {
         angle += increment;
@@ -59,3 +76,11 @@ let render_loop = () => {
 
 let btn_angle = create_button('Angle: 0°', canvas_interface, null);
 window.requestAnimationFrame(render_loop);
+
+let isPause = false;
+
+let btn_pause = create_button('Pause', canvas_interface, () => {
+    isPause = !isPause;
+    isPause ? btn_pause.style.border = '3px solid purple' : btn_pause.style.border = '3px solid black';
+    isPause ? increment = 0 : increment = -Math.PI / 180;
+})
